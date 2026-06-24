@@ -20,6 +20,10 @@ function Login() {
         body: JSON.stringify(userData),
       }
     );
+    console.log(response.status);
+    const data = await response.json();
+    localStorage.setItem("token", data.token);
+    console.log(localStorage.getItem("token"));
   };
   return (
     <div>

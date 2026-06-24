@@ -1,15 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userData = {
       email,
       password,
     };
-    console.log("SUBMITTED");
     const response = await fetch(
       "http://localhost:3000/api/auth/login",
       {
@@ -20,10 +21,12 @@ function Login() {
         body: JSON.stringify(userData),
       }
     );
-    console.log(response.status);
+    console.log(response.ok);
     const data = await response.json();
-    localStorage.setItem("token", data.token);
-    console.log(localStorage.getItem("token"));
+    if (response.ok) {
+      localStorage.setItem("token", data.token);
+      navigate("/dashboard");
+    }
   };
   return (
     <div>

@@ -21,7 +21,6 @@ function Login() {
         body: JSON.stringify(userData),
       }
     );
-    console.log(response.ok);
     const data = await response.json();
     if (response.ok) {
       localStorage.setItem("token", data.token);

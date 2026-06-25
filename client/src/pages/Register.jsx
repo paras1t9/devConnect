@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Input from "../components/Input"
+import Button from "../components/Button";
 
 function Register() {
   const [name, setName] = useState("");
@@ -59,9 +61,9 @@ function Register() {
       {success && <p style={{ color: "green" }}>{success}</p>}
 
       <form onSubmit={handleSubmit}>
-        <input
+        <Input
           type="text"
-          placeholder="Enter Name"
+          placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -69,9 +71,9 @@ function Register() {
         <br />
         <br />
 
-        <input
+        <Input
           type="email"
-          placeholder="Enter Email"
+          placeholder="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -79,9 +81,9 @@ function Register() {
         <br />
         <br />
 
-        <input
+        <Input
           type="password"
-          placeholder="Enter Password"
+          placeholder="Name"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -89,7 +91,9 @@ function Register() {
         <br />
         <br />
 
-        <button type="submit">Register</button>
+        <Button type="submit">
+          Register
+        </Button>
       </form>
     </div>
   );

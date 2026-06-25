@@ -12,12 +12,6 @@ function Dashboard() {
       navigate("/");
       return;
     }
-
-    console.log(token);
-    console.log({
-      Authorization: `Bearer ${token}`,
-    });
-
     const fetchProfile = async () => {
       try {
         const response = await fetch(

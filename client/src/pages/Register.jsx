@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/Input"
 import Button from "../components/Button";
+import { registerUser } from "../services/api"
 
 function Register() {
   const [name, setName] = useState("");
@@ -25,16 +26,7 @@ function Register() {
     };
 
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/auth/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userData),
-        }
-      );
+      const { response, data } = await registerUser(userData);
 
       const data = await response.json();
 

@@ -27,9 +27,6 @@ function Register() {
 
     try {
       const { response, data } = await registerUser(userData);
-
-      const data = await response.json();
-
       if (!response.ok) {
         setError(data.message);
         return;

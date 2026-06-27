@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Dashboard() {
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,6 +13,9 @@ function Dashboard() {
       navigate("/");
       return;
     }
+
+    if (user) return;
+
     const fetchProfile = async () => {
       try {
         const response = await fetch(
@@ -25,6 +29,7 @@ function Dashboard() {
         );
 
         if (!response.ok) {
+          localStorage.removeItem("token");
           navigate("/");
           return;
         }
@@ -38,7 +43,7 @@ function Dashboard() {
     };
 
     fetchProfile();
-  }, [navigate]);
+  }, [navigate, user, setUser]);
 
   if (!user) {
     return <h1>Loading...</h1>;

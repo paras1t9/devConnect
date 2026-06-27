@@ -1,29 +1,23 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../services/api";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { setUser } = useAuth();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userData = {
       email,
       password,
     };
-    const response = await fetch(
-      "http://localhost:3000/api/auth/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      }
-    );
-    const data = await response.json();
+    const { response, data } = await loginUser(userData);
     if (response.ok) {
       localStorage.setItem("token", data.token);
+      setUser(data.user);
       navigate("/dashboard");
     }
   };
@@ -33,6 +27,7 @@ function Login() {
 
       <form onSubmit={handleSubmit}>
         <input
+
           type="email"
           placeholder="Enter Email"
           value={email}

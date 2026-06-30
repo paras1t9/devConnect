@@ -72,7 +72,7 @@ function Register() {
 
         <Input
           type="password"
-          placeholder="Name"
+          placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />

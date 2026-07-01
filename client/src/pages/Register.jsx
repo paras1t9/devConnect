@@ -1,92 +1,133 @@
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Input from "../components/common/Input"
-import Button from "../components/common/Button";
-import { registerUser } from "../services/api"
 import toast from "react-hot-toast";
 
-function Register() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+import Input from "../components/common/Input";
+import Button from "../components/common/Button";
 
+import { registerUser } from "../services/api";
+
+export default function Register() {
   const navigate = useNavigate();
+
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setUserData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setError("");
-    setSuccess("");
-
-    const userData = {
-      name,
-      email,
-      password,
-    };
-
     try {
       const { response, data } = await registerUser(userData);
-      if (!response.ok) {
-        setError(data.message);
-        return;
-      }
 
-      toast.success("Account created successfully!");
-      setTimeout(() => {
+      if (response.ok) {
+        toast.success("Account created successfully!");
+
         navigate("/");
-      }, 2000);
-    } catch (error) {
-      console.error(error);
-      toast.error(error);
+      } else {
+        toast.error(data.message);
+      }
+    } catch {
+      toast.error("Something went wrong.");
     }
   };
 
   return (
-    <div>
-      <h1>Register</h1>
+    <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4">
+      <div className="w-full max-w-md">
+        <div className="mb-8 text-center">
+          <h1 className="text-4xl font-bold text-slate-800">
+            DevConnect
+          </h1>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+          <p className="mt-2 text-slate-500">
+            Connect. Collaborate. Grow.
+          </p>
+        </div>
 
-      <form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+        <div className="rounded-2xl bg-white p-8 shadow-sm">
+          <h2 className="text-2xl text-center font-semibold">
+            Create your account
+          </h2>
 
-        <br />
-        <br />
+          <p className="mt-2 text-center text-slate-500">
+            Join the developer community.
+          </p>
 
-        <Input
-          type="email"
-          placeholder="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          <form
+            onSubmit={handleSubmit}
+            className="mt-8 space-y-5"
+          >
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-700">
+                Name
+              </label>
 
-        <br />
-        <br />
+              <Input
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                value={userData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-        <Input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-700">
+                Email
+              </label>
 
-        <br />
-        <br />
+              <Input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                value={userData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-        <Button type="submit">
-          Register
-        </Button>
-      </form>
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-700">
+                Password
+              </label>
+
+              <Input
+                type="password"
+                name="password"
+                placeholder="Create a password"
+                value={userData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <Button type="submit">
+              Create Account
+            </Button>
+          </form>
+
+          <p className="mt-6 text-center text-sm text-slate-600">
+            Already have an account?{" "}
+            <Link
+              to="/"
+              className="font-semibold text-blue-600 hover:text-blue-700"
+            >
+              Login
+            </Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
-
-export default Register;

@@ -7,11 +7,6 @@ export default function Sidebar({ isSidebarExpanded }) {
         <NavLink to="/dashboard">
           {isSidebarExpanded ? "🏠 Dashboard" : "🏠"}
         </NavLink>
-
-        <NavLink to="/profile">
-          {isSidebarExpanded ? "👤 Profile" : "👤"}
-        </NavLink>
-
         <NavLink to="/about">
           {isSidebarExpanded ? "ℹ About" : "ℹ"}
         </NavLink>

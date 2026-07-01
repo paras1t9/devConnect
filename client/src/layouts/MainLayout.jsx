@@ -5,20 +5,22 @@ import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 
 export default function MainLayout() {
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
 
   const toggleSidebar = () => {
     setIsSidebarExpanded((prev) => !prev);
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-100">
       <Navbar toggleSidebar={toggleSidebar} />
 
-      <main>
+      <main className="flex">
         <Sidebar isExpanded={isSidebarExpanded} />
 
-        <Outlet />
+        <section className="flex-1 p-6">
+          <Outlet />
+        </section>
       </main>
     </div>
   );

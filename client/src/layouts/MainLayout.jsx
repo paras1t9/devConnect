@@ -12,13 +12,13 @@ export default function MainLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen flex flex-col bg-slate-100">
       <Navbar toggleSidebar={toggleSidebar} />
 
-      <main className="flex">
+      <main className="flex flex-1 overflow-hidden">
         <Sidebar isExpanded={isSidebarExpanded} />
 
-        <section className="flex-1 p-6">
+        <section className="flex-1 overflow-y-auto p-8">
           <Outlet />
         </section>
       </main>

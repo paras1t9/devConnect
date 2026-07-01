@@ -29,12 +29,18 @@ function AuthProvider({ children }) {
     restoreSession();
   }, []);
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+  };
+
   return (
     <AuthContext.Provider
       value={{
         user,
-        setUser,
         loading,
+        logout,
+        setUser
       }}
     >
       {children}

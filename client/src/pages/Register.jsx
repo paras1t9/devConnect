@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Input from "../components/common/Input"
 import Button from "../components/common/Button";
 import { registerUser } from "../services/api"
+import toast from "react-hot-toast";
 
 function Register() {
   const [name, setName] = useState("");
@@ -32,13 +33,13 @@ function Register() {
         return;
       }
 
-      setSuccess("Registration successful! Redirecting to login...");
+      toast.success("Account created successfully!");
       setTimeout(() => {
         navigate("/");
       }, 2000);
     } catch (error) {
       console.error(error);
-      setError("Something went wrong. Please try again.");
+      toast.error(error);
     }
   };
 

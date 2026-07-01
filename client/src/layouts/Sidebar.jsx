@@ -17,10 +17,10 @@ const navItems = [
 export default function Sidebar({ isExpanded }) {
   return (
     <aside
-      className={`bg-white border-r transition-all duration-300 ${isExpanded ? "w-64" : "w-20"
+      className={`border-r bg-white transition-all duration-300 ${isExpanded ? "w-64" : "w-20"
         }`}
     >
-      <nav className="flex flex-col p-4 gap-2">
+      <nav className="flex flex-col gap-3 p-4">
         {navItems.map((item) => {
           const Icon = item.icon;
 
@@ -29,15 +29,19 @@ export default function Sidebar({ isExpanded }) {
               key={item.path}
               to={item.path}
               className={({ isActive }) =>
-                `flex items-center gap-3 p-3 rounded-lg transition-colors ${isActive
-                  ? "bg-blue-500 text-white"
-                  : "hover:bg-gray-100"
+                `flex items-center rounded-xl px-4 py-3 transition-all ${isActive
+                  ? "bg-blue-600 text-whitefont-semibold shadow"
+                  : "text-slate-700 hover:bg-slate-100"
                 }`
               }
             >
-              <Icon size={20} />
+              <Icon size={25} />
 
-              {isExpanded && <span>{item.name}</span>}
+              {isExpanded && (
+                <span className="ml-4 font-medium">
+                  {item.name}
+                </span>
+              )}
             </NavLink>
           );
         })}

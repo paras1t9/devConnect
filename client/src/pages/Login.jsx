@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api";
 import { useAuth } from "../context/AuthContext";
+import toast from "react-hot-toast";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -18,7 +19,12 @@ function Login() {
     if (response.ok) {
       localStorage.setItem("token", data.token);
       setUser(data.user);
+
+      toast.success("Welcome Back!")
+
       navigate("/dashboard");
+    } else {
+      toast.error(data.message);
     }
   };
   return (

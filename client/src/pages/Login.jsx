@@ -7,6 +7,7 @@ import Button from "../components/common/Button";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { loginUser } from "../services/api";
+import AuthLayout from "../layouts/AuthLayout";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -48,63 +49,68 @@ export default function Login() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4">
       <div className="w-full max-w-md">
-        <div className="mb-8 text-center">
+        {/* <div className="mb-8 text-center">
           <h1 className="text-4xl font-bold text-slate-800">
-            DevConnect
+            devConnect
           </h1>
 
           <p className="mt-2 text-slate-500">
             Connect. Collaborate. Grow.
           </p>
-        </div>
+        </div> */}
 
         <div className="rounded-2xl bg-white p-8 shadow-sm">
-          <h2 className="text-2xl text-center font-semibold">
+          {/* <h2 className="text-2xl text-center font-semibold">
             Welcome Back
           </h2>
 
           <p className="mt-2 text-center text-slate-500">
             Sign in to continue.
-          </p>
+          </p> */}
 
-          <form
-            onSubmit={handleSubmit}
-            className="mt-8 space-y-5"
+          <AuthLayout
+            title="Welcome Back"
+            subtitle="Sign in to continue."
           >
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">
-                Email
-              </label>
+            <form
+              onSubmit={handleSubmit}
+              className="mt-8 space-y-5"
+            >
+              <div>
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Email
+                </label>
 
-              <Input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                value={userData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  value={userData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">
-                Password
-              </label>
+              <div>
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Password
+                </label>
 
-              <Input
-                type="password"
-                name="password"
-                placeholder="Enter your password"
-                value={userData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  value={userData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            <Button type="submit">
-              Login
-            </Button>
-          </form>
+              <Button type="submit">
+                Login
+              </Button>
+            </form>
+          </AuthLayout>
 
           <p className="mt-6 text-center text-sm text-slate-600">
             Don't have an account?{" "}

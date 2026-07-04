@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 
 import Input from "../components/common/Input";
 import Button from "../components/common/Button";
+import AuthLayout from "../layouts/AuthLayout";
 
 import { registerUser } from "../services/api";
 
@@ -44,79 +45,82 @@ export default function Register() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4">
       <div className="w-full max-w-md">
-        <div className="mb-8 text-center">
+        {/* <div className="mb-8 text-center">
           <h1 className="text-4xl font-bold text-slate-800">
-            DevConnect
+            devConnect
           </h1>
 
           <p className="mt-2 text-slate-500">
             Connect. Collaborate. Grow.
           </p>
-        </div>
+        </div> */}
 
         <div className="rounded-2xl bg-white p-8 shadow-sm">
-          <h2 className="text-2xl text-center font-semibold">
+          {/* <h2 className="text-2xl text-center font-semibold">
             Create your account
           </h2>
 
           <p className="mt-2 text-center text-slate-500">
             Join the developer community.
-          </p>
+          </p> */}
 
-          <form
-            onSubmit={handleSubmit}
-            className="mt-8 space-y-5"
-          >
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">
-                Name
-              </label>
+          <AuthLayout
+            title="Create your account"
+            subtitle="Join the developer community.">
+            <form
+              onSubmit={handleSubmit}
+              className="mt-8 space-y-5"
+            >
+              <div>
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Name
+                </label>
 
-              <Input
-                type="text"
-                name="name"
-                placeholder="Enter your name"
-                value={userData.name}
-                onChange={handleChange}
-                required
-              />
-            </div>
+                <Input
+                  type="text"
+                  name="name"
+                  placeholder="Enter your name"
+                  value={userData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">
-                Email
-              </label>
+              <div>
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Email
+                </label>
 
-              <Input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                value={userData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  value={userData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">
-                Password
-              </label>
+              <div>
+                <label className="mb-2 block text-sm font-medium text-slate-700">
+                  Password
+                </label>
 
-              <Input
-                type="password"
-                name="password"
-                placeholder="Create a password"
-                value={userData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="Create a password"
+                  value={userData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            <Button type="submit">
-              Create Account
-            </Button>
-          </form>
-
+              <Button type="submit">
+                Create Account
+              </Button>
+            </form>
+          </AuthLayout>
           <p className="mt-6 text-center text-sm text-slate-600">
             Already have an account?{" "}
             <Link

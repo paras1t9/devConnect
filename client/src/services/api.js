@@ -150,3 +150,21 @@ export async function createComment(postId, content, token) {
     data,
   };
 }
+export async function deleteComment(commentId, token) {
+  const response = await fetch(
+    `${BASE_URL}/comments/${commentId}`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const data = await response.json();
+
+  return {
+    response,
+    data,
+  };
+}

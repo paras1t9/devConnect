@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { getComments } from "../../services/api";
+import { getComments, createComment, deleteComment } from "../../services/api";
 import CommentForm from "./CommentForm";
-import { createComment } from "../../services/api";
+import CommentCard from "./CommentCard";
+import ConfirmationModal from "../common/ConfirmationModal";
 
 export default function CommentSection({ postId }) {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedCommentId, setSelectedCommentId] = useState(null);
 
   useEffect(() => {
     loadComments();
@@ -42,6 +45,37 @@ export default function CommentSection({ postId }) {
     setComments((prev) => [...prev, data.comment]);
 
   }
+  function requestDelete(commentId) {
+    setSelectedCommentId(commentId);
+    setIsDeleteModalOpen(true);
+  }
+  async function confirmDelete() {
+    if (!selectedCommentId) return;
+
+    const token = localStorage.getItem("token");
+
+    const { response, data } =
+      await deleteComment(
+        selectedCommentId,
+        token
+      );
+
+    if (!response.ok) {
+      console.error(data.message);
+      return;
+    }
+
+    setComments((prevComments) =>
+      prevComments.filter(
+        (comment) =>
+          comment._id !== selectedCommentId
+      )
+    );
+
+    setSelectedCommentId(null);
+
+    setIsDeleteModalOpen(false);
+  }
 
   return (
     <div className="mt-4 border-t border-slate-200 pt-4">
@@ -55,34 +89,33 @@ export default function CommentSection({ postId }) {
         </p>
       ) : comments.length === 0 ? (
         <p className="text-slate-500">
-          No comments yet.
+          No comments yet. Be the first one to comment!
         </p>
       ) : (
         <div className="space-y-4">
           {comments.map((comment) => (
-            <div
+            <CommentCard
               key={comment._id}
-              className="flex gap-3 rounded-xl bg-slate-50 p-4"
-            >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 font-semibold text-white">
-                {comment.author.name[0].toUpperCase()}
-              </div>
-
-              <div className="flex-1">
-                <p className="font-semibold">
-                  {comment.author.name}
-                </p>
-
-                <p className="mt-1 text-slate-700">
-                  {comment.content}
-                </p>
-              </div>
-            </div>
+              comment={comment}
+              onDelete={requestDelete}
+            />
           ))}
         </div>
       )}
-      <CommentForm
-        onSubmit={handleCreateComment}
+
+      <CommentForm onSubmit={handleCreateComment} />
+
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        title="Delete Comment"
+        message="Are you sure you want to delete this comment? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        onConfirm={confirmDelete}
+        onCancel={() => {
+          setSelectedCommentId(null);
+          setIsDeleteModalOpen(false);
+        }}
       />
     </div>
   );

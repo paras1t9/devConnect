@@ -3,13 +3,18 @@ import { useAuth } from "../context/AuthContext";
 
 import { getPosts, createPost } from "../services/api";
 import { toggleLike } from "../services/api";
+import { deletePost } from "../services/api";
 
 import FloatingPostButton from "../components/posts/FloatingPostButton";
 import CreatePostModal from "../components/posts/CreatePostModal";
 import Feed from "../components/posts/Feed";
+import ConfirmationModal from "../components/common/ConfirmationModal";
 
 export default function Dashboard() {
   const { user } = useAuth();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const [selectedPostId, setSelectedPostId] = useState(null);
 
   const [posts, setPosts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,6 +68,34 @@ export default function Dashboard() {
     );
   }
 
+  async function handleDelete(postId) {
+    const token = localStorage.getItem("token");
+
+    const { response, data } = await deletePost(postId, token);
+
+    if (!response.ok) {
+      console.error(data.message);
+      return;
+    }
+
+    setPosts((prevPosts) =>
+      prevPosts.filter((post) => post._id !== postId)
+    );
+  }
+  async function requestDelete(postId) {
+    setSelectedPostId(postId);
+    setIsDeleteModalOpen(true);
+  }
+  async function confirmDelete() {
+    if (!selectedPostId) return;
+
+    await handleDelete(selectedPostId);
+
+    setSelectedPostId(null);
+
+    setIsDeleteModalOpen(false);
+  }
+
   return (
     <div className="space-y-6">
       {/* Welcome Card */}
@@ -80,6 +113,7 @@ export default function Dashboard() {
       <Feed
         posts={posts}
         onLike={handleLike}
+        onDelete={requestDelete}
       />
 
       {/* Create Post Modal */}
@@ -92,6 +126,18 @@ export default function Dashboard() {
       {/* Floating Action Button */}
       <FloatingPostButton
         onClick={() => setIsModalOpen(true)}
+      />
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        title="Delete Post"
+        message="Are you sure you want to delete this post? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        onConfirm={confirmDelete}
+        onCancel={() => {
+          setSelectedPostId(null);
+          setIsDeleteModalOpen(false);
+        }}
       />
     </div>
   );

@@ -8,7 +8,7 @@ import { formatDistanceToNow } from "date-fns";
 
 import { useAuth } from "../../context/AuthContext";
 
-export default function PostCard({ post, onLike }) {
+export default function PostCard({ post, onLike, onDelete }) {
   const { user } = useAuth();
 
   const likeCount = post.likes.length;
@@ -45,7 +45,15 @@ export default function PostCard({ post, onLike }) {
 
         {isOwner && (
           <button
-            className="rounded-full p-2 text-slate-400 transition hover:bg-red-50 hover:text-red-600"
+            onClick={() => onDelete(post._id)}
+            className="
+              rounded-full
+              p-2
+              text-slate-400
+              transition
+              hover:bg-red-50
+              hover:text-red-600
+            "
           >
             <Trash2 size={18} />
           </button>
@@ -62,19 +70,19 @@ export default function PostCard({ post, onLike }) {
         <button
           onClick={() => onLike(post._id)}
           className={`
-    flex
-    flex-1
-    items-center
-    justify-center
-    gap-2
-    rounded-lg
-    py-2
-    transition
-    ${likedByCurrentUser
+            flex
+            flex-1
+            items-center
+            justify-center
+            gap-2
+            rounded-lg
+            py-2
+            transition
+            ${likedByCurrentUser
               ? "text-red-600 bg-red-50"
               : "text-slate-600 hover:bg-red-50 hover:text-red-600"
             }
-  `}
+            `}
         >
           <Heart
             size={18}

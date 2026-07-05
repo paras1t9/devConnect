@@ -111,3 +111,42 @@ export async function deletePost(postId, token) {
     data,
   };
 }
+export async function getComments(postId, token) {
+  const response = await fetch(
+    `${BASE_URL}/posts/${postId}/comments`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const data = await response.json();
+
+  return {
+    response,
+    data,
+  };
+}
+export async function createComment(postId, content, token) {
+  const response = await fetch(
+    `${BASE_URL}/posts/${postId}/comments`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        content,
+      }),
+    }
+  );
+
+  const data = await response.json();
+
+  return {
+    response,
+    data,
+  };
+}

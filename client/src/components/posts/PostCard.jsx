@@ -1,16 +1,19 @@
 import {
   Heart,
   MessageCircle,
+  ChevronDown,
+  ChevronUp,
   Trash2,
 } from "lucide-react";
 
 import { formatDistanceToNow } from "date-fns";
-
+import { useState } from "react";
+import CommentSection from "../comments/CommentSection";
 import { useAuth } from "../../context/AuthContext";
 
 export default function PostCard({ post, onLike, onDelete }) {
   const { user } = useAuth();
-
+  const [isExpanded, setIsExpanded] = useState(false);
   const likeCount = post.likes.length;
 
   const isOwner = post.author._id === user.id;
@@ -66,7 +69,7 @@ export default function PostCard({ post, onLike, onDelete }) {
       </p>
 
       {/* Footer */}
-      <div className="mt-6 flex border-t pt-4">
+      <div className="mt-6 flex items-center gap-2 border-t pt-4">
         <button
           onClick={() => onLike(post._id)}
           className={`
@@ -93,6 +96,7 @@ export default function PostCard({ post, onLike, onDelete }) {
         </button>
 
         <button
+          onClick={() => setIsExpanded((prev) => !prev)}
           className="
             flex
             flex-1
@@ -112,6 +116,9 @@ export default function PostCard({ post, onLike, onDelete }) {
           <span>Comments</span>
         </button>
       </div>
+      {isExpanded && (
+        <CommentSection postId={post._id} />
+      )}
     </div>
   );
 }

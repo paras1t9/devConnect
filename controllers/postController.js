@@ -140,7 +140,7 @@ async function deletePost(req, res) {
 
 async function createComment(req, res) {
   try {
-    const postId = req.params.postId;
+    const postId = req.params.id;
     const { content } = req.body;
     if (!content || !content.trim()) {
       return res.status(400).json({

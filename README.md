@@ -1,90 +1,91 @@
-# DevConnect
+# 🚀 DevConnect
 
-A modern full-stack social networking platform built with the MERN stack.
+A full-stack social media platform built for developers to share ideas, interact through posts and comments, and learn modern web application architecture.
 
-DevConnect is designed to provide developers with a platform to connect, share ideas, showcase projects, and collaborate with others. This project is being developed with a strong focus on software architecture, clean code principles, scalability, and production-ready practices rather than simply building features.
+DevConnect was built from scratch using the MERN stack with a strong emphasis on clean architecture, RESTful API design, authentication, reusable React components, and scalable project structure.
 
 ---
 
-## Features
+## ✨ Features
 
-### Authentication
+### 🔐 Authentication
 
-* User Registration
-* User Login
-* JWT Authentication
-* Protected Routes
-* Persistent Sessions
-* Automatic Session Restoration
+- User Registration
+- User Login
+- JWT Authentication
+- Protected Routes
+- Persistent Login using Context API
+
+---
+
+### 📝 Posts
+
+- Create Posts
+- View Feed
+- Like / Unlike Posts
+- Delete Own Posts
+- Floating "Create Post" Button
+- Custom Delete Confirmation Modal
+
+---
+
+### 💬 Comments
+
+- Expand / Collapse Comments
+- View Comments
+- Create Comments
+- Delete Own Comments
+- Reusable Comment Components
+
+---
+
+### 🎨 User Interface
+
+- Responsive Dashboard
+- Modern Card-based Feed
+- Relative Timestamps
+- Floating Action Button
+- Custom Modals
+- Clean TailwindCSS Design
+
+---
+
+## 🏗 Tech Stack
 
 ### Frontend
 
-* React + Vite
-* React Router
-* Context API for Authentication
-* Nested Routing
-* Application Shell Architecture
-* Reusable Components
+- React
+- React Router
+- Context API
+- Tailwind CSS
+- Lucide React
+- date-fns
 
 ### Backend
 
-* Node.js
-* Express.js
-* MongoDB
-* Mongoose
-* JWT Authentication
-* RESTful APIs
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT
+- bcrypt
 
 ---
 
-## Tech Stack
+## 📂 Project Structure
 
-### Frontend
-
-* React
-* React Router DOM
-* Vite
-* Context API
-* JavaScript (ES6+)
-
-### Backend
-
-* Node.js
-* Express.js
-* MongoDB
-* Mongoose
-* JWT
-* bcrypt
-
----
-
-## Project Structure
-
-```text
+```
 client/
 │
-├── src/
-│   ├── components/
-│   │   ├── auth/
-│   │   └── common/
-│   │
-│   ├── context/
-│   │   └── AuthContext.jsx
-│   │
-│   ├── layouts/
-│   │   ├── MainLayout.jsx
-│   │   ├── Navbar.jsx
-│   │   └── Sidebar.jsx
-│   │
-│   ├── pages/
-│   │
-│   ├── services/
-│   │   └── api.js
-│   │
-│   ├── App.jsx
-│   └── main.jsx
+├── components/
+│   ├── common/
+│   ├── comments/
+│   └── posts/
 │
-└── ...
+├── context/
+├── pages/
+├── services/
+└── layouts/
 
 server/
 │
@@ -93,194 +94,170 @@ server/
 ├── middleware/
 ├── models/
 ├── routes/
-└── index.js
+└── utils/
 ```
 
 ---
 
-## Architecture
-
-DevConnect follows a layered architecture where each component has a single responsibility.
-
-```
-BrowserRouter
-│
-├── Public Routes
-│   ├── Login
-│   └── Register
-│
-└── Protected Routes
-        │
-        ▼
-   ProtectedRoute
-        │
-        ▼
-    MainLayout
-    ├── Navbar
-    ├── Sidebar
-    └── Outlet
-          │
-          ├── Dashboard
-          └── About
-```
-
-### Design Principles
-
-* Single Responsibility Principle
-* Separation of Concerns
-* Single Source of Truth
-* Encapsulation
-* Component Composition
-* Low Coupling & High Cohesion
-
----
-
-## Authentication Flow
-
-```
-User Login
-      │
-      ▼
-Backend validates credentials
-      │
-      ▼
-JWT generated
-      │
-      ▼
-Stored in localStorage
-      │
-      ▼
-AuthProvider restores session
-      │
-      ▼
-ProtectedRoute verifies authentication
-      │
-      ▼
-MainLayout renders authenticated pages
-```
-
----
-
-## Installation
+## ⚙️ Installation
 
 ### Clone the repository
 
 ```bash
-git clone https://github.com/paras1t9/devConnect.git
-```
-
-### Install Backend Dependencies
-
-```bash
-npm install
-```
-
-### Install Frontend Dependencies
-
-```bash
-cd client
-npm install
+git clone https://github.com/paras1t9/devconnect.git
 ```
 
 ---
 
-## Running the Project
-
-### Start Backend
+### Backend
 
 ```bash
-npm run dev
+cd server
+npm install
 ```
 
-### Start Frontend
-
-```bash
-cd client
-npm run dev
-```
-
----
-
-## Environment Variables
-
-Create a `.env` file in the backend root.
+Create a `.env` file.
 
 ```env
-MONGO_URI=your_mongodb_connection_string
+PORT=3000
+MONGO_URI=YOUR_MONGODB_URI
+JWT_SECRET=YOUR_SECRET_KEY
+```
 
-JWT_SECRET=your_secret_key
+Start the backend.
+
+```bash
+npm run dev
 ```
 
 ---
 
-## Current Progress
+### Frontend
 
-### Completed
+```bash
+cd client
+npm install
+npm run dev
+```
 
-* User Authentication
-* JWT Authorization
-* Protected Routes
-* Auth Context
-* Session Restoration
-* API Service Layer
-* Nested Routing
-* Main Layout
-* Navbar
-* Sidebar
-* Application Shell
+The frontend runs on
 
-### In Progress
+```
+http://localhost:5173
+```
 
-* Tailwind CSS Integration
-* Responsive Layout
-* Sidebar Collapse Animation
+The backend runs on
 
-### Planned Features
-
-* User Profiles
-* Social Feed
-* Create Posts
-* Likes & Comments
-* Search
-* Notifications
-* Real-time Messaging
-* File Uploads
-* Dark Mode
-* Performance Optimization
-* Testing
-* Deployment
+```
+http://localhost:3000
+```
 
 ---
 
-## Learning Goals
+## 🔑 Environment Variables
 
-This project is intentionally being developed using production-grade engineering practices.
-
-Topics covered include:
-
-* React Architecture
-* Component Design
-* State Management
-* REST API Design
-* Authentication
-* Routing
-* Clean Code
-* Software Design Principles
-* Scalable Frontend Architecture
+| Variable   | Description               |
+| ---------- | ------------------------- |
+| PORT       | Backend Port              |
+| MONGO_URI  | MongoDB Connection String |
+| JWT_SECRET | Secret used for JWT       |
 
 ---
 
-## Contributing
+## 📡 API Endpoints
 
-Contributions, suggestions, and feedback are welcome.
+### Authentication
 
-1. Fork the repository.
-2. Create a new feature branch.
-3. Commit your changes.
-4. Open a Pull Request.
+| Method | Endpoint             | Description   |
+| ------ | -------------------- | ------------- |
+| POST   | `/api/auth/register` | Register User |
+| POST   | `/api/auth/login`    | Login User    |
 
 ---
 
-## License
+### Users
+
+| Method | Endpoint             | Description    |
+| ------ | -------------------- | -------------- |
+| GET    | `/api/users/profile` | Logged-in User |
+
+---
+
+### Posts
+
+| Method | Endpoint              | Description   |
+| ------ | --------------------- | ------------- |
+| GET    | `/api/posts`          | Get Posts     |
+| POST   | `/api/posts`          | Create Post   |
+| PATCH  | `/api/posts/:id/like` | Like / Unlike |
+| DELETE | `/api/posts/:id`      | Delete Post   |
+
+---
+
+### Comments
+
+| Method | Endpoint                   | Description    |
+| ------ | -------------------------- | -------------- |
+| GET    | `/api/posts/:id/comments`  | Get Comments   |
+| POST   | `/api/posts/:id/comments`  | Create Comment |
+| DELETE | `/api/comments/:commentId` | Delete Comment |
+
+---
+
+## 🎯 Future Improvements
+
+- User Profiles
+- Edit Posts
+- Edit Comments
+- Image Uploads
+- Infinite Scrolling
+- Real-time Notifications
+- Real-time Feed using Socket.IO
+- Search Functionality
+- Dark Mode
+- Unit & Integration Tests
+- Docker Support
+- CI/CD Pipeline
+- Deployment
+
+---
+
+## 📚 What I Learned
+
+While building DevConnect, I gained hands-on experience with:
+
+- Designing RESTful APIs
+- JWT Authentication
+- MongoDB Data Modeling
+- React State Management
+- Context API
+- Component Architecture
+- CRUD Operations
+- Middleware Design
+- Authorization
+- Pagination
+- Reusable UI Components
+- Full Stack Application Structure
+- Debugging Frontend and Backend Together
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome.
+
+Feel free to fork the project and open a pull request.
+
+---
+
+## 📄 License
 
 This project is licensed under the MIT License.
+
+---
+
+## 👨‍💻 Author
+
+**Ayush Mehta**
+
+If you found this project interesting, consider giving it a ⭐ on GitHub.

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
 import { getPosts, createPost } from "../services/api";
+import { toggleLike } from "../services/api";
 
 import FloatingPostButton from "../components/posts/FloatingPostButton";
 import CreatePostModal from "../components/posts/CreatePostModal";
@@ -40,10 +41,26 @@ export default function Dashboard() {
       return;
     }
 
-    // We'll replace this with optimistic updates later.
+    //  replace this with optimistic updates later.
     await loadPosts();
 
     setIsModalOpen(false);
+  }
+  async function handleLike(postId) {
+    const token = localStorage.getItem("token");
+
+    const { response, data } = await toggleLike(postId, token);
+
+    if (!response.ok) {
+      console.error(data.message);
+      return;
+    }
+
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post._id === data.post._id ? data.post : post
+      )
+    );
   }
 
   return (
@@ -60,7 +77,10 @@ export default function Dashboard() {
       </div>
 
       {/* Feed */}
-      <Feed posts={posts} />
+      <Feed
+        posts={posts}
+        onLike={handleLike}
+      />
 
       {/* Create Post Modal */}
       <CreatePostModal

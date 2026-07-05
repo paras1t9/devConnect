@@ -1,6 +1,6 @@
 import PostCard from "./PostCard";
 
-export default function Feed({ posts }) {
+export default function Feed({ posts, onLike }) {
   if (posts.length === 0) {
     return (
       <div className="rounded-2xl bg-white p-8 text-center shadow-sm">
@@ -9,11 +9,14 @@ export default function Feed({ posts }) {
         </h2>
 
         <p className="mt-2 text-slate-500">
-          Be the first developer to share something 🚀
+          Be the first developer to share something
         </p>
       </div>
     );
   }
+
+
+
 
   return (
     <div className="space-y-4">
@@ -21,6 +24,7 @@ export default function Feed({ posts }) {
         <PostCard
           key={post._id}
           post={post}
+          onLike={onLike}
         />
       ))}
     </div>

@@ -39,7 +39,7 @@ async function getPosts(req, res) {
       .sort({ createdAt: -1 })
       .skip((pageNumber - 1) * limitNumber)
       .limit(limitNumber)
-      .populate("author", "name");
+      .populate("author", "_id name");
 
     return res.status(200).json({
       success: true,
@@ -83,6 +83,7 @@ async function toggleLike(req, res) {
     }
 
     await post.save();
+    await post.populate("author", "_id name");
 
     return res.status(200).json({
       success: true,

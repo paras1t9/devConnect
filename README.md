@@ -250,12 +250,6 @@ Feel free to fork the project and open a pull request.
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License.
-
----
-
 ## 👨‍💻 Author
 
 **Ayush Mehta**
